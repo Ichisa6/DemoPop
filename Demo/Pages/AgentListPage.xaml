@@ -1,0 +1,105 @@
+﻿<Page x:Class="Demo.Pages.AgentListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Demo.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="800"
+      Title="AgentListPage" Loaded="Page_Loaded">
+
+    <Page.Resources>
+
+        <Style TargetType="TextBlock" x:Key="TBStyle">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0 1.5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Hinting"></Setter>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+    </Page.Resources>
+
+    <StackPanel x:Name="stackPanel">
+        <WrapPanel Grid.ColumnSpan="3" Orientation="Horizontal" Background="LightSteelBlue">
+            <StackPanel Orientation="Horizontal"  Margin="5">
+                <TextBlock Text="Поиск:"  Margin="5"/>
+                <TextBox x:Name="TbSearch" Text="" Width="100" Margin="5" Background="White" TextChanged="TextBox_TextChanged" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="По типу:" Margin="5" VerticalAlignment="Center"/>
+                <ComboBox Width="150" Height="25" 
+                          x:Name="Filtr" 
+                          DisplayMemberPath="Title"
+                          SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Сортировать по:"  Margin="5" VerticalAlignment="Center"/>
+                <ComboBox Width="150" Height="25" Name="Sortir" SelectionChanged="ComboBox_SelectionChanged" >
+                    <ComboBoxItem>по умолчанию</ComboBoxItem>
+                    <ComboBoxItem>цене по Возрастанию</ComboBoxItem>
+                    <ComboBoxItem>цене по убыванию</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </WrapPanel>
+        <ListView x:Name="LVProduct"
+                  
+                  BorderThickness="0"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  Height="510">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="border" BorderBrush="Black"
+                            BorderThickness="1"
+                            Padding="10 14"
+                            Width="792">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="206"/>
+                                <ColumnDefinition Width="390"/>
+                                <ColumnDefinition Width="199"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+
+                            <Image Source="{Binding LogoImage}"/>
+
+                            <StackPanel Grid.Column="1"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding FullName}"
+                                               Style="{StaticResource TBStyle}"
+                                               FontWeight="Bold"/>
+                                <TextBlock Text="10 продаж за год"
+                                               Style="{StaticResource TBStyle}"
+                                               TextTrimming="CharacterEllipsis"
+                                               MaxHeight="40"/>
+                                <TextBlock Text="{Binding Phone}"
+                                               Style="{StaticResource TBStyle}"/>
+                                <TextBlock Text="{Binding Priority, StringFormat='Приоритетность: {0}'}"
+                                                   Style="{StaticResource TBStyle}"/>
+                            </StackPanel>
+
+                            <TextBlock Text="10%"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Grid.Column="2"
+                                       Style="{StaticResource TBStyle}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Height="53" Background="White">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="AddNew" Background="Transparent" BorderThickness="0" Content="Добавить" Width="70" Click="AddNew_Click"/>
+                <Button x:Name="Edit" Background="Transparent" BorderThickness="0" Content="Редактировать" Width="90" Click="Edit_Click"/>
+                <Button x:Name="LeftBtn" Background="Transparent" BorderThickness="0" Content="&lt;" Width="30" Click="LeftBtn_Click"/>
+                <StackPanel x:Name="SPanelPages" Width="auto" Orientation="Horizontal"/>
+                <Button x:Name="RightBtn" Background="Transparent" BorderThickness="0" Content="&gt;" Width="30" Click="RightBtn_Click"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Page>
